@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:uipath="http://uipath.org/schema/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="x-uipath-initial-diagram" targetNamespace="http://www.omg.org/spec/BPMN/20100524/MODEL" exporter="UiPath Studio Web (https://uipath.com)" exporterVersion="7e244f1a">
+  <bpmn:process id="Process_1" name="Process" isExecutable="false">
+    <bpmn:extensionElements>
+      <uipath:migrationVersion version="8" />
+    </bpmn:extensionElements>
+    <bpmn:startEvent id="Event_start" name="Start event">
+      <bpmn:extensionElements>
+        <uipath:entryPointId value="36798829-9dcf-49d9-b589-7ae9e5327804" />
+      </bpmn:extensionElements>
+      <bpmn:outgoing>edge_Event_start-Activity_puuYVt</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_puuYVt" name="Get request details">
+      <bpmn:incoming>edge_Event_start-Activity_puuYVt</bpmn:incoming>
+      <bpmn:outgoing>edge_Activity_puuYVt-Activity_0L4jAE</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_0L4jAE" name="Check against policy">
+      <bpmn:incoming>edge_Activity_puuYVt-Activity_0L4jAE</bpmn:incoming>
+      <bpmn:outgoing>edge_Activity_0L4jAE-Activity_XIihDr</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_XIihDr" name="Pay">
+      <bpmn:incoming>edge_Activity_0L4jAE-Activity_XIihDr</bpmn:incoming>
+      <bpmn:outgoing>edge_Activity_XIihDr-Event_HPUAnq</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="Event_HPUAnq">
+      <bpmn:incoming>edge_Activity_XIihDr-Event_HPUAnq</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="edge_Event_start-Activity_puuYVt" sourceRef="Event_start" targetRef="Activity_puuYVt" />
+    <bpmn:sequenceFlow id="edge_Activity_puuYVt-Activity_0L4jAE" sourceRef="Activity_puuYVt" targetRef="Activity_0L4jAE" />
+    <bpmn:sequenceFlow id="edge_Activity_0L4jAE-Activity_XIihDr" sourceRef="Activity_0L4jAE" targetRef="Activity_XIihDr" />
+    <bpmn:sequenceFlow id="edge_Activity_XIihDr-Event_HPUAnq" sourceRef="Activity_XIihDr" targetRef="Event_HPUAnq" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="S_Event_start" bpmnElement="Event_start">
+        <dc:Bounds x="97" y="200" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="97" y="241" width="36" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Activity_puuYVt" bpmnElement="Activity_puuYVt">
+        <dc:Bounds x="181" y="178" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="181" y="263" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Activity_0L4jAE" bpmnElement="Activity_0L4jAE">
+        <dc:Bounds x="329" y="178" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="329" y="263" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Activity_XIihDr" bpmnElement="Activity_XIihDr">
+        <dc:Bounds x="640" y="178" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="640" y="263" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Event_HPUAnq" bpmnElement="Event_HPUAnq">
+        <dc:Bounds x="788" y="200" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="788" y="241" width="36" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Event_start-Activity_puuYVt" bpmnElement="edge_Event_start-Activity_puuYVt">
+        <di:waypoint x="133" y="218" />
+        <di:waypoint x="181" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Activity_puuYVt-Activity_0L4jAE" bpmnElement="edge_Activity_puuYVt-Activity_0L4jAE">
+        <di:waypoint x="281" y="218" />
+        <di:waypoint x="329" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Activity_0L4jAE-Activity_XIihDr" bpmnElement="edge_Activity_0L4jAE-Activity_XIihDr">
+        <di:waypoint x="428" y="218" />
+        <di:waypoint x="640" y="218" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Activity_XIihDr-Event_HPUAnq" bpmnElement="edge_Activity_XIihDr-Event_HPUAnq">
+        <di:waypoint x="740" y="218" />
+        <di:waypoint x="788" y="218" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
