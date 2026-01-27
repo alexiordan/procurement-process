@@ -51,7 +51,7 @@ jobs:
           echo "Uploading package: $PACKAGE_FILE"
           uipcli solution upload-package "$PACKAGE_FILE" \
             -U "${{ vars.ORCHESTRATOR_URL }}" \
-            -T "${{ vars.ORCHESTRATOR_TENANT }}" \
+            -T "${{ vars.STAGING_ORCHESTRATOR_TENANT }}" \
             -A "${{ vars.ORG_NAME }}" \
             -I "${{ vars.EXTERNAL_APP_ID }}" \
             -S "${{ secrets.EXTERNAL_APP_SECRET }}"
@@ -64,7 +64,7 @@ jobs:
             -f "${{ vars.ORCHESTRATOR_FOLDER }}" \
             --deploymentParentFolder "${{ vars.PARENT_FOLDER }}" \
             -U "${{ vars.ORCHESTRATOR_URL }}" \
-            -T "${{ vars.ORCHESTRATOR_TENANT }}" \
+            -T "${{ vars.STAGING_ORCHESTRATOR_TENANT }}" \
             -A "${{ vars.ORG_NAME }}" \
             -I "${{ vars.EXTERNAL_APP_ID }}" \
             -S "${{ secrets.EXTERNAL_APP_SECRET }}"
@@ -73,17 +73,10 @@ jobs:
         run: |
           uipcli solution deploy-activate "Procurement-Process-Staging" \
             -U "${{ vars.ORCHESTRATOR_URL }}" \
-            -T "${{ vars.ORCHESTRATOR_TENANT }}" \
+            -T "${{ vars.STAGING_ORCHESTRATOR_TENANT }}" \
             -A "${{ vars.ORG_NAME }}" \
             -I "${{ vars.EXTERNAL_APP_ID }}" \
             -S "${{ secrets.EXTERNAL_APP_SECRET }}"
-
-      - name: Upload Package as Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: solution-package
-          path: ./packages/*.zip
-          retention-days: 1
 
       - name: Staging Summary
         if: always()
@@ -91,7 +84,7 @@ jobs:
           echo "## Staging Deployment Summary" >> $GITHUB_STEP_SUMMARY
           echo "- Solution: Procurement Process" >> $GITHUB_STEP_SUMMARY
           echo "- Version: ${{ steps.set-version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
-          echo "- Tenant: ${{ vars.ORCHESTRATOR_TENANT }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Tenant: ${{ vars.STAGING_ORCHESTRATOR_TENANT }}" >> $GITHUB_STEP_SUMMARY
           echo "- Parent Folder: ${{ vars.PARENT_FOLDER }}" >> $GITHUB_STEP_SUMMARY
           echo "- Deployment Folder: ${{ vars.ORCHESTRATOR_FOLDER }}" >> $GITHUB_STEP_SUMMARY
 
@@ -116,14 +109,17 @@ jobs:
           echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
           uipcli --version
 
-      - name: Download Package Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: solution-package
-          path: ./packages
-
-      - name: List Downloaded Package
+      - name: Download Package from Staging
         run: |
+          mkdir -p ./packages
+          uipcli solution download-package "Procurement Process" \
+            -v "${{ needs.deploy-staging.outputs.package-version }}" \
+            -d ./packages \
+            -U "${{ vars.ORCHESTRATOR_URL }}" \
+            -T "${{ vars.STAGING_ORCHESTRATOR_TENANT }}" \
+            -A "${{ vars.ORG_NAME }}" \
+            -I "${{ vars.EXTERNAL_APP_ID }}" \
+            -S "${{ secrets.EXTERNAL_APP_SECRET }}"
           echo "Downloaded package:"
           ls -la ./packages/
 
@@ -133,7 +129,7 @@ jobs:
           echo "Uploading package to Production: $PACKAGE_FILE"
           uipcli solution upload-package "$PACKAGE_FILE" \
             -U "${{ vars.ORCHESTRATOR_URL }}" \
-            -T "${{ vars.ORCHESTRATOR_TENANT }}" \
+            -T "${{ vars.PRODUCTION_ORCHESTRATOR_TENANT }}" \
             -A "${{ vars.ORG_NAME }}" \
             -I "${{ vars.EXTERNAL_APP_ID }}" \
             -S "${{ secrets.EXTERNAL_APP_SECRET }}"
@@ -146,7 +142,7 @@ jobs:
             -f "${{ vars.ORCHESTRATOR_FOLDER }}" \
             --deploymentParentFolder "${{ vars.DEPLOYMENT_PARENT_FOLDER }}" \
             -U "${{ vars.ORCHESTRATOR_URL }}" \
-            -T "${{ vars.ORCHESTRATOR_TENANT }}" \
+            -T "${{ vars.PRODUCTION_ORCHESTRATOR_TENANT }}" \
             -A "${{ vars.ORG_NAME }}" \
             -I "${{ vars.EXTERNAL_APP_ID }}" \
             -S "${{ secrets.EXTERNAL_APP_SECRET }}"
@@ -155,7 +151,7 @@ jobs:
         run: |
           uipcli solution deploy-activate "Procurement-Process-Production" \
             -U "${{ vars.ORCHESTRATOR_URL }}" \
-            -T "${{ vars.ORCHESTRATOR_TENANT }}" \
+            -T "${{ vars.PRODUCTION_ORCHESTRATOR_TENANT }}" \
             -A "${{ vars.ORG_NAME }}" \
             -I "${{ vars.EXTERNAL_APP_ID }}" \
             -S "${{ secrets.EXTERNAL_APP_SECRET }}"
@@ -167,6 +163,6 @@ jobs:
           echo "- Solution: Procurement Process" >> $GITHUB_STEP_SUMMARY
           echo "- Version: ${{ needs.deploy-staging.outputs.package-version }}" >> $GITHUB_STEP_SUMMARY
           echo "- URL: ${{ vars.ORCHESTRATOR_URL }}" >> $GITHUB_STEP_SUMMARY
-          echo "- Tenant: ${{ vars.ORCHESTRATOR_TENANT }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Tenant: ${{ vars.PRODUCTION_ORCHESTRATOR_TENANT }}" >> $GITHUB_STEP_SUMMARY
           echo "- Parent Folder: ${{ vars.DEPLOYMENT_PARENT_FOLDER }}" >> $GITHUB_STEP_SUMMARY
           echo "- Deployment Folder: ${{ vars.ORCHESTRATOR_FOLDER }}" >> $GITHUB_STEP_SUMMARY
