@@ -58,9 +58,9 @@ jobs:
 
       - name: Deploy Solution to Staging
         run: |
-          uipcli solution deploy "CityBreak Process" \
+          uipcli solution deploy "Procurement Process" \
             -v "${{ steps.set-version.outputs.version }}" \
-            -d "CityBreak-Process-Staging" \
+            -d "Procurement-Process-Staging" \
             -f "${{ vars.ORCHESTRATOR_FOLDER }}" \
             --deploymentParentFolder "${{ vars.PARENT_FOLDER }}" \
             -U "${{ vars.ORCHESTRATOR_URL }}" \
@@ -71,7 +71,7 @@ jobs:
 
       - name: Activate Staging Deployment
         run: |
-          uipcli solution deploy-activate "CityBreak-Process-Staging" \
+          uipcli solution deploy-activate "Procurement-Process-Staging" \
             -U "${{ vars.ORCHESTRATOR_URL }}" \
             -T "${{ vars.ORCHESTRATOR_TENANT }}" \
             -A "${{ vars.ORG_NAME }}" \
@@ -82,7 +82,7 @@ jobs:
         if: always()
         run: |
           echo "## Staging Deployment Summary" >> $GITHUB_STEP_SUMMARY
-          echo "- Solution: CityBreak Process" >> $GITHUB_STEP_SUMMARY
+          echo "- Solution: Procurement Process" >> $GITHUB_STEP_SUMMARY
           echo "- Version: ${{ steps.set-version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
           echo "- Tenant: ${{ vars.ORCHESTRATOR_TENANT }}" >> $GITHUB_STEP_SUMMARY
           echo "- Parent Folder: ${{ vars.PARENT_FOLDER }}" >> $GITHUB_STEP_SUMMARY
@@ -112,7 +112,7 @@ jobs:
       - name: Download Package from Staging
         run: |
           mkdir -p ./packages
-          uipcli solution download-package "CityBreak Process" \
+          uipcli solution download-package "Procurement Process" \
             -v "${{ needs.deploy-staging.outputs.package-version }}" \
             -d ./packages \
             -U "${{ vars.ORCHESTRATOR_URL }}" \
@@ -136,9 +136,9 @@ jobs:
 
       - name: Deploy Solution to Production
         run: |
-          uipcli solution deploy "CityBreak Process" \
+          uipcli solution deploy "Procurement Process" \
             -v "${{ needs.deploy-staging.outputs.package-version }}" \
-            -d "CityBreak-Process-Production" \
+            -d "Procurement-Process-Production" \
             -f "${{ vars.ORCHESTRATOR_FOLDER }}" \
             --deploymentParentFolder "${{ vars.DEPLOYMENT_PARENT_FOLDER }}" \
             -U "${{ vars.ORCHESTRATOR_URL }}" \
@@ -149,7 +149,7 @@ jobs:
 
       - name: Activate Production Deployment
         run: |
-          uipcli solution deploy-activate "CityBreak-Process-Production" \
+          uipcli solution deploy-activate "Procurement-Process-Production" \
             -U "${{ vars.ORCHESTRATOR_URL }}" \
             -T "${{ vars.ORCHESTRATOR_TENANT }}" \
             -A "${{ vars.ORG_NAME }}" \
@@ -160,7 +160,7 @@ jobs:
         if: always()
         run: |
           echo "## Production Deployment Summary" >> $GITHUB_STEP_SUMMARY
-          echo "- Solution: CityBreak Process" >> $GITHUB_STEP_SUMMARY
+          echo "- Solution: Procurement Process" >> $GITHUB_STEP_SUMMARY
           echo "- Version: ${{ needs.deploy-staging.outputs.package-version }}" >> $GITHUB_STEP_SUMMARY
           echo "- URL: ${{ vars.ORCHESTRATOR_URL }}" >> $GITHUB_STEP_SUMMARY
           echo "- Tenant: ${{ vars.ORCHESTRATOR_TENANT }}" >> $GITHUB_STEP_SUMMARY
