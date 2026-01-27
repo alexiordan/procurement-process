@@ -78,6 +78,13 @@ jobs:
             -I "${{ vars.EXTERNAL_APP_ID }}" \
             -S "${{ secrets.EXTERNAL_APP_SECRET }}"
 
+      - name: Upload Package as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: solution-package
+          path: ./packages/*.zip
+          retention-days: 1
+
       - name: Staging Summary
         if: always()
         run: |
@@ -109,17 +116,14 @@ jobs:
           echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
           uipcli --version
 
-      - name: Download Package from Staging
+      - name: Download Package Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: solution-package
+          path: ./packages
+
+      - name: List Downloaded Package
         run: |
-          mkdir -p ./packages
-          uipcli solution download-package "Procurement Process" \
-            -v "${{ needs.deploy-staging.outputs.package-version }}" \
-            -d ./packages \
-            -U "${{ vars.ORCHESTRATOR_URL }}" \
-            -T "${{ vars.ORCHESTRATOR_TENANT }}" \
-            -A "${{ vars.ORG_NAME }}" \
-            -I "${{ vars.EXTERNAL_APP_ID }}" \
-            -S "${{ secrets.EXTERNAL_APP_SECRET }}"
           echo "Downloaded package:"
           ls -la ./packages/
 
