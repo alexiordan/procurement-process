@@ -15,10 +15,10 @@
       <bpmn:extensionElements>
         <uipath:entryPointId value="36798829-9dcf-49d9-b589-7ae9e5327804" />
       </bpmn:extensionElements>
-      <bpmn:outgoing>edge_Event_start-Activity_puuYVt</bpmn:outgoing>
+      <bpmn:outgoing>edge_Event_start-Activity_GuUWUjQhU2mi</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:task id="Activity_puuYVt" name="Get request details">
-      <bpmn:incoming>edge_Event_start-Activity_puuYVt</bpmn:incoming>
+      <bpmn:incoming>edge_Activity_GuUWUj-Activity_puuYVtTyDj0P</bpmn:incoming>
       <bpmn:outgoing>edge_Activity_puuYVt-Activity_0L4jAE</bpmn:outgoing>
     </bpmn:task>
     <bpmn:serviceTask id="Activity_0L4jAE" name="Check against policy">
@@ -75,7 +75,10 @@
       <bpmn:incoming>edge_iMMMpy</bpmn:incoming>
       <bpmn:outgoing>edge_Activity_Z5VR8U-Event_HPUAnqeNxg8m</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:sequenceFlow id="edge_Event_start-Activity_puuYVt" sourceRef="Event_start" targetRef="Activity_puuYVt" />
+    <bpmn:task id="Activity_GuUWUj" name="Audit in 3rd party tool">
+      <bpmn:incoming>edge_Event_start-Activity_GuUWUjQhU2mi</bpmn:incoming>
+      <bpmn:outgoing>edge_Activity_GuUWUj-Activity_puuYVtTyDj0P</bpmn:outgoing>
+    </bpmn:task>
     <bpmn:sequenceFlow id="edge_Activity_puuYVt-Activity_0L4jAE" sourceRef="Activity_puuYVt" targetRef="Activity_0L4jAE" />
     <bpmn:sequenceFlow id="edge_kG0UQV" sourceRef="Activity_0L4jAE" targetRef="Gateway_bioGaN" />
     <bpmn:sequenceFlow id="edge_t80F9W" name="Doesn&#39;t comply" sourceRef="Gateway_bioGaN" targetRef="Activity_TaECQu">
@@ -100,13 +103,15 @@
     <bpmn:sequenceFlow id="edge_iMMMpy" name="Rejected" sourceRef="Gateway_bbt3nu" targetRef="Activity_Z5VR8U">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=false</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="edge_Event_start-Activity_GuUWUjQhU2mi" sourceRef="Event_start" targetRef="Activity_GuUWUj" />
+    <bpmn:sequenceFlow id="edge_Activity_GuUWUj-Activity_puuYVtTyDj0P" sourceRef="Activity_GuUWUj" targetRef="Activity_puuYVt" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
       <bpmndi:BPMNShape id="S_Event_start" bpmnElement="Event_start">
-        <dc:Bounds x="-47" y="201" width="36" height="36" />
+        <dc:Bounds x="-277" y="201" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="-47" y="242" width="36" height="14" />
+          <dc:Bounds x="-277" y="242" width="36" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="S_Activity_puuYVt" bpmnElement="Activity_puuYVt">
@@ -175,10 +180,12 @@
           <dc:Bounds x="706" y="264" width="100" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="BPMNEdge_edge_Event_start-Activity_puuYVt" bpmnElement="edge_Event_start-Activity_puuYVt">
-        <di:waypoint x="-11" y="219" />
-        <di:waypoint x="37" y="219" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="S_Activity_GuUWUj" bpmnElement="Activity_GuUWUj">
+        <dc:Bounds x="-161" y="179" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-161" y="264" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_edge_Activity_puuYVt-Activity_0L4jAE" bpmnElement="edge_Activity_puuYVt-Activity_0L4jAE">
         <di:waypoint x="137" y="219" />
         <di:waypoint x="185" y="219" />
@@ -227,6 +234,14 @@
         <di:waypoint x="627" y="400" />
         <di:waypoint x="756" y="400" />
         <di:waypoint x="756" y="259" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Event_start-Activity_GuUWUjQhU2mi" bpmnElement="edge_Event_start-Activity_GuUWUjQhU2mi">
+        <di:waypoint x="-241" y="219" />
+        <di:waypoint x="-161" y="219" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Activity_GuUWUj-Activity_puuYVtTyDj0P" bpmnElement="edge_Activity_GuUWUj-Activity_puuYVtTyDj0P">
+        <di:waypoint x="-61" y="219" />
+        <di:waypoint x="37" y="219" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
