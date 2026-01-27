@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:uipath="http://uipath.org/schema/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="x-uipath-initial-diagram" targetNamespace="http://www.omg.org/spec/BPMN/20100524/MODEL" exporter="UiPath Studio Web (https://uipath.com)" exporterVersion="71061d31">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:uipath="http://uipath.org/schema/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="x-uipath-initial-diagram" targetNamespace="http://www.omg.org/spec/BPMN/20100524/MODEL" exporter="UiPath Studio Web (https://uipath.com)" exporterVersion="71061d31">
   <bpmn:process id="Process_1" name="Process" isExecutable="false">
     <bpmn:extensionElements>
       <uipath:variables version="v1">
-        <uipath:inputOutput id="error" name="Error" type="jsonSchema" elementId="Activity_XIihDr"><![CDATA[{"type":"object","properties":{"code":{"type":"string"},"message":{"type":"string"},"detail":{"type":"string"},"category":{"type":"string"},"status":{"type":"number"}}}]]></uipath:inputOutput>
-        <uipath:inputOutput id="content" name="content" type="string" elementId="Activity_XIihDr" />
+        <uipath:inputOutput id="error" name="Error" type="jsonSchema" elementId="Activity_0L4jAE"><![CDATA[{"type":"object","properties":{"code":{"type":"string"},"message":{"type":"string"},"detail":{"type":"string"},"category":{"type":"string"},"status":{"type":"number"}}}]]></uipath:inputOutput>
       </uipath:variables>
       <uipath:bindings version="v1">
-        <uipath:binding id="bvT9RreQl" name="folderPath" type="string" resource="process" resourceSubType="Agent" resourceKey="Payment agent" propertyAttribute="folderPath" />
-        <uipath:binding id="bFWTlLhfH" name="name" type="string" default="Payment agent" resource="process" resourceSubType="Agent" resourceKey="Payment agent" propertyAttribute="name" />
+        <uipath:binding id="bZWYJSlzy" name="folderPath" type="string" resource="process" resourceSubType="Agent" resourceKey="Policy checker" propertyAttribute="folderPath" />
+        <uipath:binding id="bbSffHTCR" name="name" type="string" default="Policy checker" resource="process" resourceSubType="Agent" resourceKey="Policy checker" propertyAttribute="name" />
       </uipath:bindings>
       <uipath:migrationVersion version="8" />
     </bpmn:extensionElements>
@@ -22,81 +21,212 @@
       <bpmn:incoming>edge_Event_start-Activity_puuYVt</bpmn:incoming>
       <bpmn:outgoing>edge_Activity_puuYVt-Activity_0L4jAE</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Activity_0L4jAE" name="Check against policy">
-      <bpmn:incoming>edge_Activity_puuYVt-Activity_0L4jAE</bpmn:incoming>
-      <bpmn:outgoing>edge_Activity_0L4jAE-Activity_XIihDr</bpmn:outgoing>
-    </bpmn:task>
-    <bpmn:serviceTask id="Activity_XIihDr" name="Pay">
+    <bpmn:serviceTask id="Activity_0L4jAE" name="Check against policy">
       <bpmn:extensionElements>
         <uipath:activity version="v1">
           <uipath:type value="Orchestrator.StartAgentJob" version="v2" />
           <uipath:context>
-            <uipath:input name="name" type="string" value="=bindings.bFWTlLhfH" />
-            <uipath:input name="folderPath" type="string" value="=bindings.bvT9RreQl" />
-            <uipath:input name="_label" type="string" value="Payment agent" />
+            <uipath:input name="name" type="string" value="=bindings.bbSffHTCR" />
+            <uipath:input name="folderPath" type="string" value="=bindings.bZWYJSlzy" />
+            <uipath:input name="_label" type="string" value="Policy checker" />
           </uipath:context>
           <uipath:output name="Error" type="jsonSchema" source="=Error" var="error" />
-          <uipath:output name="content" type="string" source="=content" var="content" />
         </uipath:activity>
       </bpmn:extensionElements>
-      <bpmn:incoming>edge_Activity_0L4jAE-Activity_XIihDr</bpmn:incoming>
-      <bpmn:outgoing>edge_Activity_XIihDr-Event_HPUAnq</bpmn:outgoing>
+      <bpmn:incoming>edge_Activity_puuYVt-Activity_0L4jAE</bpmn:incoming>
+      <bpmn:outgoing>edge_kG0UQV</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:task id="Activity_XIihDr" name="Pay">
+      <bpmn:incoming>edge_anKnNo</bpmn:incoming>
+      <bpmn:incoming>edge_CrFZyK</bpmn:incoming>
+      <bpmn:outgoing>edge_Activity_XIihDr-Activity_Z5VR8UHlCbY4</bpmn:outgoing>
+    </bpmn:task>
     <bpmn:endEvent id="Event_HPUAnq">
-      <bpmn:incoming>edge_Activity_XIihDr-Event_HPUAnq</bpmn:incoming>
+      <bpmn:incoming>edge_Activity_Z5VR8U-Event_HPUAnqeNxg8m</bpmn:incoming>
     </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="Gateway_bioGaN">
+      <bpmn:incoming>edge_kG0UQV</bpmn:incoming>
+      <bpmn:outgoing>edge_t80F9W</bpmn:outgoing>
+      <bpmn:outgoing>edge_CrFZyK</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Activity_TaECQu" name="Qualify missing info">
+      <bpmn:incoming>edge_t80F9W</bpmn:incoming>
+      <bpmn:outgoing>edge_Activity_TaECQu-Gateway_4ipJBQ2afjoB</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_BbSSuN" name="Ask user">
+      <bpmn:incoming>edge_Gateway_4ipJBQ-Activity_BbSSuNylNLdd</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_4ipJBQ">
+      <bpmn:incoming>edge_Activity_TaECQu-Gateway_4ipJBQ2afjoB</bpmn:incoming>
+      <bpmn:outgoing>edge_Gateway_4ipJBQ-Activity_BbSSuNylNLdd</bpmn:outgoing>
+      <bpmn:outgoing>edge_hfM6zg</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Activity_Cz3OP2" name="Manager decision">
+      <bpmn:incoming>edge_hfM6zg</bpmn:incoming>
+      <bpmn:outgoing>edge_XzpMaB</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_bbt3nu">
+      <bpmn:incoming>edge_XzpMaB</bpmn:incoming>
+      <bpmn:outgoing>edge_anKnNo</bpmn:outgoing>
+      <bpmn:outgoing>edge_iMMMpy</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Activity_Z5VR8U" name="Send status e-mail">
+      <bpmn:incoming>edge_Activity_XIihDr-Activity_Z5VR8UHlCbY4</bpmn:incoming>
+      <bpmn:incoming>edge_iMMMpy</bpmn:incoming>
+      <bpmn:outgoing>edge_Activity_Z5VR8U-Event_HPUAnqeNxg8m</bpmn:outgoing>
+    </bpmn:task>
     <bpmn:sequenceFlow id="edge_Event_start-Activity_puuYVt" sourceRef="Event_start" targetRef="Activity_puuYVt" />
     <bpmn:sequenceFlow id="edge_Activity_puuYVt-Activity_0L4jAE" sourceRef="Activity_puuYVt" targetRef="Activity_0L4jAE" />
-    <bpmn:sequenceFlow id="edge_Activity_0L4jAE-Activity_XIihDr" sourceRef="Activity_0L4jAE" targetRef="Activity_XIihDr" />
-    <bpmn:sequenceFlow id="edge_Activity_XIihDr-Event_HPUAnq" sourceRef="Activity_XIihDr" targetRef="Event_HPUAnq" />
+    <bpmn:sequenceFlow id="edge_kG0UQV" sourceRef="Activity_0L4jAE" targetRef="Gateway_bioGaN" />
+    <bpmn:sequenceFlow id="edge_t80F9W" name="Doesn&#39;t comply" sourceRef="Gateway_bioGaN" targetRef="Activity_TaECQu">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="edge_Activity_TaECQu-Gateway_4ipJBQ2afjoB" sourceRef="Activity_TaECQu" targetRef="Gateway_4ipJBQ" />
+    <bpmn:sequenceFlow id="edge_Gateway_4ipJBQ-Activity_BbSSuNylNLdd" name="Ask user" sourceRef="Gateway_4ipJBQ" targetRef="Activity_BbSSuN">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="edge_hfM6zg" name="Ask manager" sourceRef="Gateway_4ipJBQ" targetRef="Activity_Cz3OP2">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="edge_XzpMaB" name="" sourceRef="Activity_Cz3OP2" targetRef="Gateway_bbt3nu" />
+    <bpmn:sequenceFlow id="edge_anKnNo" name="Approve" sourceRef="Gateway_bbt3nu" targetRef="Activity_XIihDr">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="edge_CrFZyK" name="Complies" sourceRef="Gateway_bioGaN" targetRef="Activity_XIihDr">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="edge_Activity_XIihDr-Activity_Z5VR8UHlCbY4" sourceRef="Activity_XIihDr" targetRef="Activity_Z5VR8U" />
+    <bpmn:sequenceFlow id="edge_Activity_Z5VR8U-Event_HPUAnqeNxg8m" sourceRef="Activity_Z5VR8U" targetRef="Event_HPUAnq" />
+    <bpmn:sequenceFlow id="edge_iMMMpy" name="Rejected" sourceRef="Gateway_bbt3nu" targetRef="Activity_Z5VR8U">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
       <bpmndi:BPMNShape id="S_Event_start" bpmnElement="Event_start">
-        <dc:Bounds x="97" y="200" width="36" height="36" />
+        <dc:Bounds x="-47" y="201" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="97" y="241" width="36" height="14" />
+          <dc:Bounds x="-47" y="242" width="36" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="S_Activity_puuYVt" bpmnElement="Activity_puuYVt">
-        <dc:Bounds x="181" y="178" width="100" height="80" />
+        <dc:Bounds x="37" y="179" width="100" height="80" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="181" y="263" width="100" height="14" />
+          <dc:Bounds x="37" y="264" width="100" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="S_Activity_0L4jAE" bpmnElement="Activity_0L4jAE">
-        <dc:Bounds x="329" y="178" width="100" height="80" />
+        <dc:Bounds x="185" y="179" width="100" height="80" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="329" y="263" width="100" height="14" />
+          <dc:Bounds x="185" y="264" width="100" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="S_Activity_XIihDr" bpmnElement="Activity_XIihDr">
-        <dc:Bounds x="640" y="178" width="100" height="80" />
+        <dc:Bounds x="552" y="179" width="100" height="80" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="640" y="263" width="100" height="14" />
+          <dc:Bounds x="552" y="264" width="100" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="S_Event_HPUAnq" bpmnElement="Event_HPUAnq">
-        <dc:Bounds x="788" y="200" width="36" height="36" />
+        <dc:Bounds x="861" y="201" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="788" y="241" width="36" height="14" />
+          <dc:Bounds x="861" y="242" width="36" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Gateway_bioGaN" bpmnElement="Gateway_bioGaN">
+        <dc:Bounds x="367" y="194" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="367" y="249" width="50" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Activity_TaECQu" bpmnElement="Activity_TaECQu">
+        <dc:Bounds x="342" y="360" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="342" y="445" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Activity_BbSSuN" bpmnElement="Activity_BbSSuN">
+        <dc:Bounds x="342" y="616" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="342" y="701" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Gateway_4ipJBQ" bpmnElement="Gateway_4ipJBQ">
+        <dc:Bounds x="367" y="517" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="367" y="572" width="50" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Activity_Cz3OP2" bpmnElement="Activity_Cz3OP2">
+        <dc:Bounds x="552" y="502" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="552" y="587" width="100" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Gateway_bbt3nu" bpmnElement="Gateway_bbt3nu">
+        <dc:Bounds x="577" y="375" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="577" y="430" width="50" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S_Activity_Z5VR8U" bpmnElement="Activity_Z5VR8U">
+        <dc:Bounds x="706" y="179" width="100" height="80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="706" y="264" width="100" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_edge_Event_start-Activity_puuYVt" bpmnElement="edge_Event_start-Activity_puuYVt">
-        <di:waypoint x="133" y="218" />
-        <di:waypoint x="181" y="218" />
+        <di:waypoint x="-11" y="219" />
+        <di:waypoint x="37" y="219" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_edge_Activity_puuYVt-Activity_0L4jAE" bpmnElement="edge_Activity_puuYVt-Activity_0L4jAE">
-        <di:waypoint x="281" y="218" />
-        <di:waypoint x="329" y="218" />
+        <di:waypoint x="137" y="219" />
+        <di:waypoint x="185" y="219" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_edge_Activity_0L4jAE-Activity_XIihDr" bpmnElement="edge_Activity_0L4jAE-Activity_XIihDr">
-        <di:waypoint x="428" y="218" />
-        <di:waypoint x="640" y="218" />
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_kG0UQV" bpmnElement="edge_kG0UQV">
+        <di:waypoint x="285" y="219" />
+        <di:waypoint x="367" y="219" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_edge_Activity_XIihDr-Event_HPUAnq" bpmnElement="edge_Activity_XIihDr-Event_HPUAnq">
-        <di:waypoint x="740" y="218" />
-        <di:waypoint x="788" y="218" />
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_t80F9W" bpmnElement="edge_t80F9W">
+        <di:waypoint x="392" y="244" />
+        <di:waypoint x="392" y="360" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Activity_TaECQu-Gateway_4ipJBQ2afjoB" bpmnElement="edge_Activity_TaECQu-Gateway_4ipJBQ2afjoB">
+        <di:waypoint x="392" y="440" />
+        <di:waypoint x="392" y="517" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Gateway_4ipJBQ-Activity_BbSSuNylNLdd" bpmnElement="edge_Gateway_4ipJBQ-Activity_BbSSuNylNLdd">
+        <di:waypoint x="392" y="567" />
+        <di:waypoint x="392" y="616" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_hfM6zg" bpmnElement="edge_hfM6zg">
+        <di:waypoint x="417" y="542" />
+        <di:waypoint x="552" y="542" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_XzpMaB" bpmnElement="edge_XzpMaB">
+        <di:waypoint x="602" y="502" />
+        <di:waypoint x="602" y="425" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_anKnNo" bpmnElement="edge_anKnNo">
+        <di:waypoint x="602" y="375" />
+        <di:waypoint x="602" y="259" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_CrFZyK" bpmnElement="edge_CrFZyK">
+        <di:waypoint x="417" y="219" />
+        <di:waypoint x="552" y="219" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Activity_XIihDr-Activity_Z5VR8UHlCbY4" bpmnElement="edge_Activity_XIihDr-Activity_Z5VR8UHlCbY4">
+        <di:waypoint x="652" y="219" />
+        <di:waypoint x="706" y="219" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_Activity_Z5VR8U-Event_HPUAnqeNxg8m" bpmnElement="edge_Activity_Z5VR8U-Event_HPUAnqeNxg8m">
+        <di:waypoint x="806" y="219" />
+        <di:waypoint x="861" y="219" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_edge_iMMMpy" bpmnElement="edge_iMMMpy">
+        <di:waypoint x="627" y="400" />
+        <di:waypoint x="756" y="400" />
+        <di:waypoint x="756" y="259" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
