@@ -5,6 +5,11 @@
       "Id": "49fce98e-de2d-4e4f-b58e-cf928cc55039",
       "Type": "ProcessOrchestration",
       "ProjectRelativePath": "Business flow/project.uiproj"
+    },
+    {
+      "Id": "3f1dcba4-96f2-4762-aa13-4d19a5b48f0b",
+      "Type": "Agent",
+      "ProjectRelativePath": "Payment agent/project.uiproj"
     }
   ]
 }
