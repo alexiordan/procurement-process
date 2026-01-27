@@ -14,6 +14,7 @@ jobs:
   deploy-staging:
     name: Deploy to Staging
     runs-on: ubuntu-latest
+    environment: STAGING
     outputs:
       package-version: ${{ steps.set-version.outputs.version }}
     
@@ -52,7 +53,7 @@ jobs:
             -U "${{ vars.ORCHESTRATOR_URL }}" \
             -T "${{ vars.ORCHESTRATOR_TENANT }}" \
             -A "${{ vars.ORG_NAME }}" \
-            -I "${{ secrets.EXTERNAL_APP_ID }}" \
+            -I "${{ vars.EXTERNAL_APP_ID }}" \
             -S "${{ secrets.EXTERNAL_APP_SECRET }}"
 
       - name: Deploy Solution to Staging
@@ -61,11 +62,11 @@ jobs:
             -v "${{ steps.set-version.outputs.version }}" \
             -d "CityBreak-Process-Staging" \
             -f "${{ vars.ORCHESTRATOR_FOLDER }}" \
-            --deploymentParentFolder "${{ vars.DEPLOYMENT_PARENT_FOLDER }}" \
+            --deploymentParentFolder "${{ vars.PARENT_FOLDER }}" \
             -U "${{ vars.ORCHESTRATOR_URL }}" \
             -T "${{ vars.ORCHESTRATOR_TENANT }}" \
             -A "${{ vars.ORG_NAME }}" \
-            -I "${{ secrets.EXTERNAL_APP_ID }}" \
+            -I "${{ vars.EXTERNAL_APP_ID }}" \
             -S "${{ secrets.EXTERNAL_APP_SECRET }}"
 
       - name: Activate Staging Deployment
@@ -74,7 +75,7 @@ jobs:
             -U "${{ vars.ORCHESTRATOR_URL }}" \
             -T "${{ vars.ORCHESTRATOR_TENANT }}" \
             -A "${{ vars.ORG_NAME }}" \
-            -I "${{ secrets.EXTERNAL_APP_ID }}" \
+            -I "${{ vars.EXTERNAL_APP_ID }}" \
             -S "${{ secrets.EXTERNAL_APP_SECRET }}"
 
       - name: Staging Summary
@@ -84,7 +85,7 @@ jobs:
           echo "- Solution: CityBreak Process" >> $GITHUB_STEP_SUMMARY
           echo "- Version: ${{ steps.set-version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
           echo "- Tenant: ${{ vars.ORCHESTRATOR_TENANT }}" >> $GITHUB_STEP_SUMMARY
-          echo "- Parent Folder: ${{ vars.DEPLOYMENT_PARENT_FOLDER }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Parent Folder: ${{ vars.PARENT_FOLDER }}" >> $GITHUB_STEP_SUMMARY
           echo "- Deployment Folder: ${{ vars.ORCHESTRATOR_FOLDER }}" >> $GITHUB_STEP_SUMMARY
 
   # ============================================
@@ -94,7 +95,7 @@ jobs:
     name: Deploy to Production
     runs-on: ubuntu-latest
     needs: deploy-staging
-    environment: Production  # Requires approval configured in GitHub
+    environment: PRODUCTION
     
     steps:
       - name: Setup .NET SDK
@@ -117,7 +118,7 @@ jobs:
             -U "${{ vars.ORCHESTRATOR_URL }}" \
             -T "${{ vars.ORCHESTRATOR_TENANT }}" \
             -A "${{ vars.ORG_NAME }}" \
-            -I "${{ secrets.EXTERNAL_APP_ID }}" \
+            -I "${{ vars.EXTERNAL_APP_ID }}" \
             -S "${{ secrets.EXTERNAL_APP_SECRET }}"
           echo "Downloaded package:"
           ls -la ./packages/
@@ -128,9 +129,9 @@ jobs:
           echo "Uploading package to Production: $PACKAGE_FILE"
           uipcli solution upload-package "$PACKAGE_FILE" \
             -U "${{ vars.ORCHESTRATOR_URL }}" \
-            -T "${{ vars.PROD_ORCHESTRATOR_TENANT }}" \
+            -T "${{ vars.ORCHESTRATOR_TENANT }}" \
             -A "${{ vars.ORG_NAME }}" \
-            -I "${{ secrets.EXTERNAL_APP_ID }}" \
+            -I "${{ vars.EXTERNAL_APP_ID }}" \
             -S "${{ secrets.EXTERNAL_APP_SECRET }}"
 
       - name: Deploy Solution to Production
@@ -138,21 +139,21 @@ jobs:
           uipcli solution deploy "CityBreak Process" \
             -v "${{ needs.deploy-staging.outputs.package-version }}" \
             -d "CityBreak-Process-Production" \
-            -f "${{ vars.PROD_ORCHESTRATOR_FOLDER }}" \
-            --deploymentParentFolder "${{ vars.PROD_DEPLOYMENT_PARENT_FOLDER }}" \
+            -f "${{ vars.ORCHESTRATOR_FOLDER }}" \
+            --deploymentParentFolder "${{ vars.DEPLOYMENT_PARENT_FOLDER }}" \
             -U "${{ vars.ORCHESTRATOR_URL }}" \
-            -T "${{ vars.PROD_ORCHESTRATOR_TENANT }}" \
+            -T "${{ vars.ORCHESTRATOR_TENANT }}" \
             -A "${{ vars.ORG_NAME }}" \
-            -I "${{ secrets.EXTERNAL_APP_ID }}" \
+            -I "${{ vars.EXTERNAL_APP_ID }}" \
             -S "${{ secrets.EXTERNAL_APP_SECRET }}"
 
       - name: Activate Production Deployment
         run: |
           uipcli solution deploy-activate "CityBreak-Process-Production" \
             -U "${{ vars.ORCHESTRATOR_URL }}" \
-            -T "${{ vars.PROD_ORCHESTRATOR_TENANT }}" \
+            -T "${{ vars.ORCHESTRATOR_TENANT }}" \
             -A "${{ vars.ORG_NAME }}" \
-            -I "${{ secrets.EXTERNAL_APP_ID }}" \
+            -I "${{ vars.EXTERNAL_APP_ID }}" \
             -S "${{ secrets.EXTERNAL_APP_SECRET }}"
 
       - name: Production Summary
@@ -162,6 +163,6 @@ jobs:
           echo "- Solution: CityBreak Process" >> $GITHUB_STEP_SUMMARY
           echo "- Version: ${{ needs.deploy-staging.outputs.package-version }}" >> $GITHUB_STEP_SUMMARY
           echo "- URL: ${{ vars.ORCHESTRATOR_URL }}" >> $GITHUB_STEP_SUMMARY
-          echo "- Tenant: ${{ vars.PROD_ORCHESTRATOR_TENANT }}" >> $GITHUB_STEP_SUMMARY
-          echo "- Parent Folder: ${{ vars.PROD_DEPLOYMENT_PARENT_FOLDER }}" >> $GITHUB_STEP_SUMMARY
-          echo "- Deployment Folder: ${{ vars.PROD_ORCHESTRATOR_FOLDER }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Tenant: ${{ vars.ORCHESTRATOR_TENANT }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Parent Folder: ${{ vars.DEPLOYMENT_PARENT_FOLDER }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Deployment Folder: ${{ vars.ORCHESTRATOR_FOLDER }}" >> $GITHUB_STEP_SUMMARY
