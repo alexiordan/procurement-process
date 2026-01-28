@@ -1,3 +1,44 @@
+# =============================================================================
+# UiPath Solution CI/CD Pipeline
+# =============================================================================
+#
+# PREREQUISITES:
+#
+# 1. UiPath External Application (Confidential)
+#    - Create in: Admin → External Applications
+#    - Type: Confidential Application
+#    - Required Scopes:
+#      Orchestrator category:
+#        • OR.Execution,OR.Execution.Read, OR.Execution.Write
+#      Automation Solutions category:
+#        • AutomationSolutions
+#        • Solutions.Packages, Solutions.Packages.Read, Solutions.Packages.Write
+#        • Solutions.Deployments, Solutions.Deployments.Read, Solutions.Deployments.Write
+#
+# 2. GitHub Repository Secrets:
+#    - EXTERNAL_APP_SECRET: The secret from your UiPath external application
+#
+# 3. GitHub Repository Variables:
+#    - EXTERNAL_APP_ID: External application ID (e.g., 59c98a6b-64e2-421b-bdd1-32a0c8f8fddd)
+#    - ORCHESTRATOR_URL: UiPath Orchestrator URL (e.g., https://staging.uipath.com/)
+#    - ORG_NAME: Organization name in UiPath (e.g., redfoxstaging)
+#    - STAGING_ORCHESTRATOR_TENANT: Staging tenant name (e.g., DefaultTenant)
+#    - PRODUCTION_ORCHESTRATOR_TENANT: Production tenant name (e.g., Production)
+#
+# 4. GitHub Environment Variables:
+#    STAGING environment:
+#      - ORCHESTRATOR_FOLDER: Target folder for staging deployment
+#      - PARENT_FOLDER: Parent folder for staging deployment
+#    PRODUCTION environment:
+#      - ORCHESTRATOR_FOLDER: Target folder for production deployment
+#      - DEPLOYMENT_PARENT_FOLDER: Parent folder for production deployment
+#
+# 5. GitHub Environments:
+#    - STAGING: Environment for staging deployments
+#    - PRODUCTION: Environment for production deployments (configure approval rules)
+#
+# =============================================================================
+
 name: Publish UiPath Solution
 
 on:

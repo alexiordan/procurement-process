@@ -15,6 +15,11 @@
       "Id": "3bc37a38-a2e3-4363-9f31-a61d93254119",
       "Type": "Agent",
       "ProjectRelativePath": "Policy checker/project.uiproj"
+    },
+    {
+      "Id": "749fb84a-1a3e-4cc6-a848-7cdae9f0ac65",
+      "Type": "Api",
+      "ProjectRelativePath": "Get user detail/project.uiproj"
     }
   ]
 }

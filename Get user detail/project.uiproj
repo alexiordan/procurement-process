@@ -1,0 +1,5 @@
+{
+  "Name": "Get user detail",
+  "MainFile": "Workflow.json",
+  "ProjectType": "Api"
+}
