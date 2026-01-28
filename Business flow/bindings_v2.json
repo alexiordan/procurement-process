@@ -26,21 +26,21 @@
     },
     {
       "resource": "process",
-      "key": "Get user detail",
-      "id": "processGet user detail",
+      "key": "Payment API Client",
+      "id": "processPayment API Client",
       "value": {
         "folderPath": {
           "isExpression": false,
           "displayName": "Folder path"
         },
         "name": {
-          "defaultValue": "Get user detail",
+          "defaultValue": "Payment API Client",
           "isExpression": false,
           "displayName": "Process name"
         }
       },
       "metadata": {
-        "ActivityName": "Get request details",
+        "ActivityName": "Pay",
         "BindingsVersion": "2.2",
         "DisplayLabel": "name",
         "SolutionsSupport": "true",

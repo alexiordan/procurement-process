@@ -1,5 +1,5 @@
 {
-  "Name": "Get user detail",
+  "Name": "Payment API Client",
   "MainFile": "Workflow.json",
   "ProjectType": "Api"
 }

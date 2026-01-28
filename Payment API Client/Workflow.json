@@ -34,8 +34,27 @@
             }
           },
           {
+            "Javascript_1": {
+              "run": {
+                "script": {
+                  "code": "",
+                  "language": "javascript",
+                  "arguments": "${{\n                        \"$context\": $context,\n                        \"$workflow\": $workflow,\n                        \"$input\": $input,\n                    }}"
+                }
+              },
+              "export": {
+                "as": "{ ...$context, outputs: { ...$context?.outputs, \"Javascript_1\": $output } }"
+              },
+              "metadata": {
+                "activityType": "JsInvoke",
+                "displayName": "Javascript",
+                "fullName": "JsInvoke"
+              }
+            }
+          },
+          {
             "Response_1": {
-              "response": "${{\n    \"firstName\":\"Jon\",\n    \"lastName\" :\"Doe\"\n}.join()}",
+              "response": "${{\n    \"firstName\":\"Jon\",\n    \"lastName\" :\"Doe\",\n    \"amount\": \"200\"\n}.join()}",
               "markJobAsFailed": false,
               "then": "end",
               "export": {

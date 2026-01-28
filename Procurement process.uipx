@@ -19,7 +19,7 @@
     {
       "Id": "749fb84a-1a3e-4cc6-a848-7cdae9f0ac65",
       "Type": "Api",
-      "ProjectRelativePath": "Get user detail/project.uiproj"
+      "ProjectRelativePath": "Payment API Client/project.uiproj"
     }
   ]
 }

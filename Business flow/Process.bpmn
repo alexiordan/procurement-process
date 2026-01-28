@@ -4,13 +4,14 @@
     <bpmn:extensionElements>
       <uipath:variables version="v1">
         <uipath:inputOutput id="error" name="Error" type="jsonSchema" elementId="Activity_0L4jAE"><![CDATA[{"type":"object","properties":{"code":{"type":"string"},"message":{"type":"string"},"detail":{"type":"string"},"category":{"type":"string"},"status":{"type":"number"}}}]]></uipath:inputOutput>
-        <uipath:inputOutput id="error2" name="Error" type="jsonSchema" elementId="Activity_puuYVt"><![CDATA[{"type":"object","properties":{"code":{"type":"string"},"message":{"type":"string"},"detail":{"type":"string"},"category":{"type":"string"},"status":{"type":"number"}}}]]></uipath:inputOutput>
+        <uipath:inputOutput id="error3" name="Error" type="jsonSchema" elementId="Activity_XIihDr"><![CDATA[{"type":"object","properties":{"code":{"type":"string"},"message":{"type":"string"},"detail":{"type":"string"},"category":{"type":"string"},"status":{"type":"number"}}}]]></uipath:inputOutput>
       </uipath:variables>
       <uipath:bindings version="v1">
         <uipath:binding id="bZWYJSlzy" name="folderPath" type="string" resource="process" resourceSubType="Agent" resourceKey="Policy checker" propertyAttribute="folderPath" />
         <uipath:binding id="bbSffHTCR" name="name" type="string" default="Policy checker" resource="process" resourceSubType="Agent" resourceKey="Policy checker" propertyAttribute="name" />
-        <uipath:binding id="ba7Vw4NK8" name="folderPath" type="string" resource="process" resourceSubType="Api" resourceKey="Get user detail" propertyAttribute="folderPath" />
-        <uipath:binding id="bchrFuu32" name="name" type="string" default="Get user detail" resource="process" resourceSubType="Api" resourceKey="Get user detail" propertyAttribute="name" />
+        <uipath:binding id="ba7Vw4NK8" name="folderPath" type="string" resource="process" resourceSubType="Api" resourceKey="Payment API Client" propertyAttribute="folderPath" />
+        <uipath:binding id="bchrFuu32" name="name" type="string" default="Payment API Client" resource="process" resourceSubType="Api" resourceKey="Payment API Client" propertyAttribute="name" />
+        <uipath:binding id="bEkLcx0L2" name="folderPath" type="string" resource="process" resourceSubType="Api" resourceKey="Payment API Client" propertyAttribute="folderPath" />
       </uipath:bindings>
       <uipath:migrationVersion version="8" />
     </bpmn:extensionElements>
@@ -21,17 +22,6 @@
       <bpmn:outgoing>edge_Event_start-Activity_puuYVtb4BMu0</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:serviceTask id="Activity_puuYVt" name="Get request details">
-      <bpmn:extensionElements>
-        <uipath:activity version="v1">
-          <uipath:type value="Orchestrator.ExecuteApiWorkflowAsync" version="v2" />
-          <uipath:context>
-            <uipath:input name="name" type="string" value="=bindings.bchrFuu32" />
-            <uipath:input name="folderPath" type="string" value="=bindings.ba7Vw4NK8" />
-            <uipath:input name="_label" type="string" value="Get user detail" />
-          </uipath:context>
-          <uipath:output name="Error" type="jsonSchema" source="=Error" var="error2" />
-        </uipath:activity>
-      </bpmn:extensionElements>
       <bpmn:incoming>edge_Event_start-Activity_puuYVtb4BMu0</bpmn:incoming>
       <bpmn:outgoing>edge_Activity_puuYVt-Activity_0L4jAE</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -50,11 +40,22 @@
       <bpmn:incoming>edge_Activity_puuYVt-Activity_0L4jAE</bpmn:incoming>
       <bpmn:outgoing>edge_kG0UQV</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:task id="Activity_XIihDr" name="Pay">
+    <bpmn:serviceTask id="Activity_XIihDr" name="Pay">
+      <bpmn:extensionElements>
+        <uipath:activity version="v1">
+          <uipath:type value="Orchestrator.ExecuteApiWorkflowAsync" version="v2" />
+          <uipath:context>
+            <uipath:input name="name" type="string" value="=bindings.bchrFuu32" />
+            <uipath:input name="folderPath" type="string" value="=bindings.bEkLcx0L2" />
+            <uipath:input name="_label" type="string" value="Get user detail" />
+          </uipath:context>
+          <uipath:output name="Error" type="jsonSchema" source="=Error" var="error3" />
+        </uipath:activity>
+      </bpmn:extensionElements>
       <bpmn:incoming>edge_anKnNo</bpmn:incoming>
       <bpmn:incoming>edge_CrFZyK</bpmn:incoming>
       <bpmn:outgoing>edge_Activity_XIihDr-Activity_Z5VR8UHlCbY4</bpmn:outgoing>
-    </bpmn:task>
+    </bpmn:serviceTask>
     <bpmn:endEvent id="Event_HPUAnq">
       <bpmn:incoming>edge_Activity_Z5VR8U-Event_HPUAnqeNxg8m</bpmn:incoming>
     </bpmn:endEvent>
