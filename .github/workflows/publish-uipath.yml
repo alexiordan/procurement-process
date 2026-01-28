@@ -117,7 +117,14 @@ jobs:
             -T "${{ vars.STAGING_ORCHESTRATOR_TENANT }}" \
             -A "${{ vars.ORG_NAME }}" \
             -I "${{ vars.EXTERNAL_APP_ID }}" \
-            -S "${{ secrets.EXTERNAL_APP_SECRET }}"
+            -S "${{ secrets.EXTERNAL_APP_SECRET }}" 2>&1 | tee activation_output.txt || {
+              if grep -qi "already activated\|already exists\|is already\|currently active\|cannot be activated\|4007" activation_output.txt; then
+                echo "⚠️ Deployment already activated (upgrade flow), continuing..."
+              else
+                echo "❌ Activation failed with unexpected error"
+                exit 1
+              fi
+            }
 
       - name: Staging Summary
         if: always()
@@ -195,7 +202,14 @@ jobs:
             -T "${{ vars.PRODUCTION_ORCHESTRATOR_TENANT }}" \
             -A "${{ vars.ORG_NAME }}" \
             -I "${{ vars.EXTERNAL_APP_ID }}" \
-            -S "${{ secrets.EXTERNAL_APP_SECRET }}"
+            -S "${{ secrets.EXTERNAL_APP_SECRET }}" 2>&1 | tee activation_output.txt || {
+              if grep -qi "already activated\|already exists\|is already\|currently active\|cannot be activated\|4007" activation_output.txt; then
+                echo "⚠️ Deployment already activated (upgrade flow), continuing..."
+              else
+                echo "❌ Activation failed with unexpected error"
+                exit 1
+              fi
+            }
 
       - name: Production Summary
         if: always()
