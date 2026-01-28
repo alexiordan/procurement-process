@@ -54,7 +54,7 @@
           },
           {
             "Response_1": {
-              "response": "${{\n    \"firstName\":\"Jon\",\n    \"lastName\" :\"Doe\",\n    \"amount\": \"200\"\n}.join()}",
+              "response": "${{\n    \"firstName\":\"Jon\",\n    \"lastName\" :\"Doe\",\n    \"amount\": \"200\"\n}}",
               "markJobAsFailed": false,
               "then": "end",
               "export": {
