@@ -12,6 +12,37 @@
       "variables": []
     }
   },
+  "input": {
+    "schema": {
+      "format": "json",
+      "document": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number"
+          }
+        },
+        "title": "Inputs"
+      }
+    }
+  },
+  "output": {
+    "schema": {
+      "format": "json",
+      "document": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          }
+        },
+        "title": "Outputs",
+        "required": [
+          "status"
+        ]
+      }
+    }
+  },
   "do": [
     {
       "Sequence_1": {
@@ -37,24 +68,25 @@
             "Javascript_1": {
               "run": {
                 "script": {
-                  "code": "",
+                  "code": "return {\n    result: true.join(\"FixME!!!!\")\n}",
                   "language": "javascript",
                   "arguments": "${{\n                        \"$context\": $context,\n                        \"$workflow\": $workflow,\n                        \"$input\": $input,\n                    }}"
                 }
               },
               "export": {
-                "as": "{ ...$context, outputs: { ...$context?.outputs, \"Javascript_1\": $output } }"
+                "as": "{ ...$context, outputs: { ...$context?.outputs, \"payment_status\": $output } }"
               },
               "metadata": {
                 "activityType": "JsInvoke",
                 "displayName": "Javascript",
-                "fullName": "JsInvoke"
+                "fullName": "JsInvoke",
+                "outputName": "payment_status"
               }
             }
           },
           {
             "Response_1": {
-              "response": "${{\n    \"firstName\":\"Jon\",\n    \"lastName\" :\"Doe\",\n    \"amount\": \"200\"\n}}",
+              "response": "${{\n status: $context.outputs.payment_status.result\n}}",
               "markJobAsFailed": false,
               "then": "end",
               "export": {
