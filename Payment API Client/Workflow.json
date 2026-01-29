@@ -68,7 +68,7 @@
             "Javascript_1": {
               "run": {
                 "script": {
-                  "code": "return {\n    result: true.join(\"FixME!!!!\")\n}",
+                  "code": "return {\n    result: true\n}",
                   "language": "javascript",
                   "arguments": "${{\n                        \"$context\": $context,\n                        \"$workflow\": $workflow,\n                        \"$input\": $input,\n                    }}"
                 }
