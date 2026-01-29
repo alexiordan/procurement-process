@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:uipath="http://uipath.org/schema/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="x-uipath-initial-diagram" targetNamespace="http://www.omg.org/spec/BPMN/20100524/MODEL" exporter="UiPath Studio Web (https://uipath.com)" exporterVersion="b708ee25">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:uipath="http://uipath.org/schema/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="x-uipath-initial-diagram" targetNamespace="http://www.omg.org/spec/BPMN/20100524/MODEL" exporter="UiPath Studio Web (https://uipath.com)" exporterVersion="ad50e55b">
   <bpmn:process id="Process_1" name="Process" isExecutable="false">
     <bpmn:extensionElements>
       <uipath:variables version="v1">
         <uipath:inputOutput id="error" name="Error" type="jsonSchema" elementId="Activity_0L4jAE"><![CDATA[{"type":"object","properties":{"code":{"type":"string"},"message":{"type":"string"},"detail":{"type":"string"},"category":{"type":"string"},"status":{"type":"number"}}}]]></uipath:inputOutput>
-        <uipath:inputOutput id="error3" name="Error" type="jsonSchema" elementId="Activity_XIihDr"><![CDATA[{"type":"object","properties":{"code":{"type":"string"},"message":{"type":"string"},"detail":{"type":"string"},"category":{"type":"string"},"status":{"type":"number"}}}]]></uipath:inputOutput>
+        <uipath:inputOutput id="error2" name="Error" type="jsonSchema" elementId="Activity_XIihDr"><![CDATA[{"type":"object","properties":{"code":{"type":"string"},"message":{"type":"string"},"detail":{"type":"string"},"category":{"type":"string"},"status":{"type":"number"}}}]]></uipath:inputOutput>
+        <uipath:inputOutput id="content" name="content" type="string" elementId="Activity_XIihDr" />
       </uipath:variables>
       <uipath:bindings version="v1">
         <uipath:binding id="bZWYJSlzy" name="folderPath" type="string" resource="process" resourceSubType="Agent" resourceKey="Policy checker" propertyAttribute="folderPath" />
@@ -12,6 +13,10 @@
         <uipath:binding id="ba7Vw4NK8" name="folderPath" type="string" resource="process" resourceSubType="Api" resourceKey="Payment API Client" propertyAttribute="folderPath" />
         <uipath:binding id="bchrFuu32" name="name" type="string" default="Payment API Client" resource="process" resourceSubType="Api" resourceKey="Payment API Client" propertyAttribute="name" />
         <uipath:binding id="bEkLcx0L2" name="folderPath" type="string" resource="process" resourceSubType="Api" resourceKey="Payment API Client" propertyAttribute="folderPath" />
+        <uipath:binding id="bU6J4J0Ij" name="folderPath" type="string" resource="process" resourceSubType="Agent" resourceKey="Payment processor" propertyAttribute="folderPath" />
+        <uipath:binding id="beWNnPFpy" name="name" type="string" default="Payment processor" resource="process" resourceSubType="Agent" resourceKey="Payment processor" propertyAttribute="name" />
+        <uipath:binding id="blazVj4SW" name="folderPath" type="string" resource="process" resourceSubType="Agent" resourceKey="Payment processor" propertyAttribute="folderPath" />
+        <uipath:binding id="bdjqSvK8G" name="folderPath" type="string" resource="process" resourceSubType="Agent" resourceKey="Payment processor" propertyAttribute="folderPath" />
       </uipath:bindings>
       <uipath:migrationVersion version="8" />
     </bpmn:extensionElements>
@@ -43,13 +48,14 @@
     <bpmn:serviceTask id="Activity_XIihDr" name="Pay">
       <bpmn:extensionElements>
         <uipath:activity version="v1">
-          <uipath:type value="Orchestrator.ExecuteApiWorkflowAsync" version="v2" />
+          <uipath:type value="Orchestrator.StartAgentJob" version="v2" />
           <uipath:context>
-            <uipath:input name="name" type="string" value="=bindings.bchrFuu32" />
-            <uipath:input name="folderPath" type="string" value="=bindings.bEkLcx0L2" />
-            <uipath:input name="_label" type="string" value="Get user detail" />
+            <uipath:input name="name" type="string" value="=bindings.beWNnPFpy" />
+            <uipath:input name="folderPath" type="string" value="=bindings.bdjqSvK8G" />
+            <uipath:input name="_label" type="string" value="Payment processor" />
           </uipath:context>
-          <uipath:output name="Error" type="jsonSchema" source="=Error" var="error3" />
+          <uipath:output name="Error" type="jsonSchema" source="=Error" var="error2" />
+          <uipath:output name="content" type="string" source="=content" var="content" />
         </uipath:activity>
       </bpmn:extensionElements>
       <bpmn:incoming>edge_anKnNo</bpmn:incoming>

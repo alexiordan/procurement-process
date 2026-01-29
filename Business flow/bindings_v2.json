@@ -26,15 +26,15 @@
     },
     {
       "resource": "process",
-      "key": "Payment API Client",
-      "id": "processPayment API Client",
+      "key": "Payment processor",
+      "id": "processPayment processor",
       "value": {
         "folderPath": {
           "isExpression": false,
           "displayName": "Folder path"
         },
         "name": {
-          "defaultValue": "Payment API Client",
+          "defaultValue": "Payment processor",
           "isExpression": false,
           "displayName": "Process name"
         }
@@ -44,7 +44,7 @@
         "BindingsVersion": "2.2",
         "DisplayLabel": "name",
         "SolutionsSupport": "true",
-        "subType": "Api"
+        "subType": "Agent"
       }
     }
   ]

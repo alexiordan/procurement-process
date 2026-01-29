@@ -9,7 +9,7 @@
     {
       "Id": "3f1dcba4-96f2-4762-aa13-4d19a5b48f0b",
       "Type": "Agent",
-      "ProjectRelativePath": "Payment agent/project.uiproj"
+      "ProjectRelativePath": "Payment processor/project.uiproj"
     },
     {
       "Id": "3bc37a38-a2e3-4363-9f31-a61d93254119",
