@@ -17,6 +17,8 @@
         <uipath:binding id="beWNnPFpy" name="name" type="string" default="Payment processor" resource="process" resourceSubType="Agent" resourceKey="Payment processor" propertyAttribute="name" />
         <uipath:binding id="blazVj4SW" name="folderPath" type="string" resource="process" resourceSubType="Agent" resourceKey="Payment processor" propertyAttribute="folderPath" />
         <uipath:binding id="bdjqSvK8G" name="folderPath" type="string" resource="process" resourceSubType="Agent" resourceKey="Payment processor" propertyAttribute="folderPath" />
+        <uipath:binding id="bbDgtLgYD" name="folderPath" type="string" resource="process" resourceSubType="Agent" resourceKey="Weather-agent" propertyAttribute="folderPath" />
+        <uipath:binding id="bE69T1K7U" name="name" type="string" default="Weather-agent" resource="process" resourceSubType="Agent" resourceKey="Weather-agent" propertyAttribute="name" />
       </uipath:bindings>
       <uipath:migrationVersion version="8" />
     </bpmn:extensionElements>
@@ -50,9 +52,9 @@
         <uipath:activity version="v1">
           <uipath:type value="Orchestrator.StartAgentJob" version="v2" />
           <uipath:context>
-            <uipath:input name="name" type="string" value="=bindings.beWNnPFpy" />
-            <uipath:input name="folderPath" type="string" value="=bindings.bdjqSvK8G" />
-            <uipath:input name="_label" type="string" value="Payment processor" />
+            <uipath:input name="name" type="string" value="=bindings.bE69T1K7U" />
+            <uipath:input name="folderPath" type="string" value="=bindings.bbDgtLgYD" />
+            <uipath:input name="_label" type="string" value="Weather-agent" />
           </uipath:context>
           <uipath:output name="Error" type="jsonSchema" source="=Error" var="error2" />
           <uipath:output name="content" type="string" source="=content" var="content" />
